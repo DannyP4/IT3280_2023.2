@@ -1,5 +1,5 @@
 .data
-	array: .word 1, 2, 3, 0, 5 	# them mot phan tu nua vao mang co gia tri la 5
+	array: .word 1, 0, 3, 4, 5 	# them mot phan tu nua vao mang co gia tri la 5
 .text
 	addi	$s5, $zero, 0	# khoi tao sum
 	addi	$s1, $zero, 0	# khoi tao i

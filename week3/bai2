@@ -1,5 +1,5 @@
 .data
-	array: .word 1, 2, 3, 4
+	array: .word 2, 4, 6, 8
 .text
 	addi	$s5, $zero, 0	# khoi tao sum
 	addi	$s1, $zero, 0	# khoi tao i

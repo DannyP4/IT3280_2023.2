@@ -24,8 +24,10 @@ else:	addi 	$t0, $t0, 0
 endif:
 
 if1:
-	sge	$t4, $t0, $s5	# A[i] >= max ? 1 : 0
-	beq 	$t4, $zero, endif1 	# neu A[i] < max thi ket thuc if1
+	#sge	$t4, $t0, $s5	# A[i] >= max ? 1 : 0
+	slt 	$t4, $t0, $s5	# A[i] < max ? 1 : 0
+	bne 	$t4, $zero, endif1 	# neu A[i] < max thi ket thuc if1
+	#beq 	$t4, $zero, endif1 	# neu A[i] < max thi ket thuc if1
 	add 	$s5, $zero, $t0		# gan max = A[i]
 endif1:	
 
