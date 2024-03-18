@@ -37,6 +37,6 @@ print_length:
  	move 	$a1, $t0
  	syscall
  	
- 	#ket thuc chuong trinh:
+ 	# Ket thuc chuong trinh:
  	li	$v0, 10
  	syscall
