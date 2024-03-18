@@ -4,7 +4,7 @@ reverse: 	.space 21
 Mssg: 		.asciiz "Nhap chuoi: "
 Input: 		.asciiz "\nChuoi ban vua nhap la: "
 Output: 	.asciiz "\nChuoi dao nguoc la: "
-Error: 	.asciiz "Chuoi khong co phan tu nao!"
+Error: 		.asciiz "Chuoi khong co phan tu nao!"
 
 .text
 	# Message:
