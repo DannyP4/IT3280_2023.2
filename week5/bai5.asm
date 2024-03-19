@@ -1,5 +1,6 @@
 .data
-string: 	.space 21 	# Toi da 21 ky tu vi phai tinh them ca ki tu cuoi '\0'
+string: 	.space 21 	# Toi da 21 ky tu boi vi phai tinh them ca ki tu
+				# ket thuc chuoi ('\0') o cuoi.
 reverse: 	.space 21	
 Mssg: 		.asciiz "Nhap chuoi: "
 Input: 		.asciiz "\nChuoi ban vua nhap la: "
@@ -74,7 +75,7 @@ out:	# In ra output:
 	la	$a0, string
 	syscall
 	
-	# Chuoi dao nguoc
+	# Chuoi dao nguoc:
 	li	$v0, 4
 	la	$a0, Output
 	syscall
@@ -83,6 +84,6 @@ out:	# In ra output:
 	la	$a0, reverse
 	syscall 
  	
- 	# Ket thuc
+ 	# Ket thuc:
 	li	$v0, 10
 	syscall
