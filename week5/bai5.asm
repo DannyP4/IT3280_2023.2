@@ -35,15 +35,14 @@ CheckEnter:
 
 load:
 	add	$t1, $s0, $a0	# $t1 = i + x[0]
-	move	$t0, $v0	# $t0 = $v0
-	sb	$t0, 0($t1)	# x[i] = $t0 = ki tu vua nhap	
+	sb	$v0, 0($t1)	# x[i] = $v0 = ki tu vua nhap	
 	nop
 	addi	$s0, $s0, 1	# i += 1
 	j	CheckLength
 	nop
 
 CheckEmpty:
-	# Kiem tra neu chuoi la trong (empty)
+	# Kiem tra neu chuoi la trong (empty) 
 	bgtz $s0, Sub		# Neu i > 0 thi chuoi khong trong
 	li $v0, 55 		# Hien dialog thong bao chuoi trong
 	la $a0, Error 
