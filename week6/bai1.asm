@@ -72,6 +72,8 @@ continue:
 lock: 	li 	$v0, 10
 	syscall
 
+end_of_main:
+
 mspfx: 	addi 	$v0, $zero, 0		# max_length = 0
  	addi 	$v1, $zero, 0		# max_sum = 0
  	addi 	$t0, $zero, 0		# i = 0
@@ -95,4 +97,6 @@ test: 	addi 	$t0, $t0, 1		# i++
 
 done: 	
 	j 	continue
+
+mspfx_end:
 	
