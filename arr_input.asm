@@ -58,6 +58,7 @@ Sum:
 	la	$a1, arr	# Lay lai dia chi $a1
 	li	$t0, 0	 	# sum = 0	
 	li	$t1, 0		# i = 0
+	
 Loop_sum:	
 	sll	$t2, $t1, 2	# $t2 = i * 4
 	add	$a1, $a1, $t2	# $a1 = 4 * i + arr[0]
