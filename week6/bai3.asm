@@ -59,7 +59,7 @@ swap:
 reset:
 	la	$a0, A
 	addi	$t0, $zero, 0	# j = 0
-	addi	$a2, $a2, 4	# i += 1
+	addi	$a2, $a2, 4	# i += 4
 	j 	bubble_sort
 	
 bubble_sort:
@@ -71,28 +71,31 @@ bubble_sort:
 	blt	$v1, $v0, swap		# if A[i] > A[j] swap
 
 continue:
-	addi	$t0, $t0, 4		# j++
+	addi	$t0, $t0, 4		# j += 4
 	j 	bubble_sort
 	
 print_sort:
+	# Print message1
 	li	$v0, 4
 	la	$a0, Message1
-	syscall			# Print message1
+	syscall			
 	
+	# Print new line
 	la	$a0, Newline
-	syscall			# Print newLine
+	syscall			
 	
+	# Print number of array
 	la	$s0, A
 	la	$s1, 0($t6)
 	lw	$s2, 0($s0)
 	li	$v0, 1
-	la	$a0, 0($s2)	# Print number1 of array
+	la	$a0, 0($s2)	
 	syscall
 	
 	addi	$t3, $zero, 0 	# i = 0
 	
 print_array:
-	addi	$t3, $t3, 4		# i++
+	addi	$t3, $t3, 4		# i += 4
 	add	$t4, $s0, $t3		# $t1 = adrress of A[0] + 4*i = A[i]
 	lw	$t5, 0($t4)		# x = A[i]
 	beq	$t4, $s1, end		# if i > (n-1) end

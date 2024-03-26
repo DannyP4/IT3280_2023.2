@@ -69,7 +69,7 @@ after_sort:
 	j 	print_array
 	
 print_array:
-	addi 	$t3, $t3, 4		# i += 1 
+	addi 	$t3, $t3, 4		# i += 4 
 	add 	$t4, $s0, $t3		# $t1 = address of A[0] + 4*i
 	lw 	$t5, 0($t4)		# x = A[i]
 	beq  	$t4, $s1, end		# if i > (n-1) end
@@ -99,7 +99,7 @@ after_max:
 	lw 	$t0, 0($a1)		# $t0 = value of adress A[n-1]
  	sw 	$t0, 0($v0)		# value of address ptr = $t0
  	sw 	$v1, 0($a1)		# value of A[n-1] = max
- 	addi 	$a1, $a1, -4		# n -= 
+ 	addi 	$a1, $a1, -4		# n -= 4
  	j 	sort
 
 done: 	j 	end_main
@@ -112,7 +112,7 @@ max:
 
 loop:
 	beq 	$t0, $a1, ret		# if i = n ret
-	addi 	$t0, $t0, 4		# i += 1 
+	addi 	$t0, $t0, 4		# i += 4 
 	lw 	$t1, 0($t0)		# temp = A[i]
 	slt 	$t2, $t1, $v1 	 	# temp < max 
 	bne 	$t2, $zero, loop	# if temp < max loop
