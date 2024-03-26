@@ -42,27 +42,28 @@ end_input:
 
 main:
 	la	$a0, A		# address of A[0]
-	addi 	$s3, $a1, 1
-	mul  	$s4, $s3, 4
-	add 	$t6, $a0, $s4
-	la 	$a1, 0($t6)
-	sub 	$a1, $a1, 4
-	addi 	$t0, $zero, 0
+	mul	$s3, $a1, 4	# $s3 = (n - 1) * 4
+	add	$a1, $s3, $a0	# $a1 = (n - 1) * 4 + A[0] = address of A[n - 1]
+	addi	$t6, $a1, 4	# $t6 = address of A[n]
+	addi 	$t0, $zero, 0	# $t0 to count the loop
 	j 	insertion_sort
 	
 print_sort:
+	# Print message1
 	li	$v0, 4
 	la	$a0, Message1
-	syscall			# Print message1
+	syscall			
 	
+	# Print newLine
 	la	$a0, Newline
-	syscall			# Print newLine
+	syscall			
 	
+	# Print number of array
 	la	$s0, A
 	la	$s1, 0($t6)
 	lw	$s2, 0($s0)
 	li	$v0, 1
-	la	$a0, 0($s2)	# Print number1 of array
+	la	$a0, 0($s2)	
 	syscall
 	
 	addi	$t3, $zero, 0 	# i = 0
@@ -91,24 +92,24 @@ end:
 	
 insertion_sort:
 	la	$a0, A
-	addi	$t0, $t0, 4		# i++
+	addi	$t0, $t0, 4		# i += 1
 	add	$v0, $a0, $t0		# i = 1
 	bgt	$v0, $a1, end_main
 	lw	$s0, 0($v0)		# key = A[i]
-	subi	$v1, $v0, 4		# j = i-1
+	subi	$v1, $v0, 4		# j = i - 1
 	
 loop:
 	blt	$v1, $a0, end_loop	# if j < 0 end_loop
 	lw	$s1, 0($v1)		# $s1 = A[j]
 	blt	$s1, $s0, end_loop	# if A[j] < key end_loop
-	addi	$t2, $v1, 4		# $t2 = j+1
-	sw	$s1, 0($t2)		# A[j+1] = A[j]
+	addi	$t2, $v1, 4		# $t2 = j + 1
+	sw	$s1, 0($t2)		# A[j + 1] = A[j]
 	subi	$v1, $v1, 4		# j--
 	j	loop
 	
 end_loop:
-	addi	$t2, $v1, 4	# $t2 = j+1
-	sw	$s0, 0($t2)	# A[j+1] = key
+	addi	$t2, $v1, 4		# $t2 = j + 1
+	sw	$s0, 0($t2)		# A[j + 1] = key
 	j 	print_sort
 	
 end_main:
