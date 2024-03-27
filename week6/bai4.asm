@@ -51,7 +51,7 @@ insertion_sort:
 	la	$a0, A
 	addi	$t0, $t0, 4		# i += 4
 	add	$v0, $a0, $t0		# $v0 = A[0] + 4*i = A[i]
-	bgt	$v0, $a1, print_sort 	# A[i] > A[n - 1] => end
+	bgt	$v0, $a1, end_main	# A[i] > A[n - 1] => end
 	lw	$s0, 0($v0)		# key = A[i]
 	sub	$v1, $v0, 4		# j = i - 4
 	
@@ -67,7 +67,7 @@ loop:
 end_loop:
 	addi	$t2, $v1, 4		# $t2 = j + 4
 	sw	$s0, 0($t2)		# A[j + 1] = key
-	j 	insertion_sort
+	j 	print_sort
 	
 print_sort:
 	# Print message1
@@ -94,7 +94,7 @@ print_array:
 	addi	$t3, $t3, 4		# i += 4
 	add	$t4, $s0, $t3		# $t1 = adrress of A[0] + 4*i = A[i]
 	lw	$t5, 0($t4)		# x = A[i]
-	beq	$t4, $s1, end_main	# if i > (n - 1) end
+	beq	$t4, $s1, end		# if i > (n - 1) end
 	li	$v0, 4
 	la	$a0, Message2
 	syscall				
@@ -105,6 +105,12 @@ print_array:
 	syscall				
 	
 	j	print_array
+	
+end:
+	li	$v0, 4
+	la	$a0, Newline
+	syscall
+	j	insertion_sort
 	
 end_main:
 	li	$v0, 10

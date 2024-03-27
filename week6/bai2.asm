@@ -41,59 +41,20 @@ input_array:
 end_input:
 
 main: 	la 	$a0, A		# address of A[0]
-	addi 	$s3, $a1, 1
-	mul  	$s4, $s3, 4
-	add 	$t6, $a0, $s4
-	la 	$a1, 0($t6)
-	sub 	$a1, $a1, 4
- 	j 	sort
- 	
-after_sort:
-	# Print message1
-	li 	$v0, 4
-	la 	$a0, Message1
-	syscall			
-	
-	# Print newLine
-	la 	$a0, Newline
-	syscall			
-	
-	la 	$s0, A
-	la 	$s1, 0($t6)
-	lw 	$s2, 0($s0)
-	li 	$v0, 1
-	la 	$a0, 0($s2)		# print number1 of array
-	syscall
-	
-	addi 	$t3, $zero, 0 		# i = 0
-	j 	print_array
-	
-print_array:
-	addi 	$t3, $t3, 4		# i += 4 
-	add 	$t4, $s0, $t3		# $t1 = address of A[0] + 4*i
-	lw 	$t5, 0($t4)		# x = A[i]
-	beq  	$t4, $s1, end		# if i > (n-1) end
-	li 	$v0, 4
-	la 	$a0, Message2
-	syscall				# Print Message2
-	
-	li 	$v0, 1
-	la 	$a0, 0($t5)
-	syscall				# Print A[i]
-	j 	print_array
+	mul  	$s3, $a1, 4	# $s3 = (n - 1) * 4  
+	add 	$t6, $a0, $s3	# $t6 = address of  A[0] + (n - 1) * 4 = address of A[n - 1]
+	addi	$t6, $t6, 4	# $t6 = address of A[n]
+	la 	$a1, 0($t6)	
+	sub 	$a1, $a1, 4	# $a1 = address of A[n - 1]
+ 	j 	max
 
 end_main:
 	li 	$v0, 10
 	syscall
 
-end:
-	li 	$v0, 4
-	la 	$a0, Newline
-	syscall
-	j max
-
-sort: 	bgt 	$a0, $a1, done		# if i = n done
- 	j 	max
+sort: 	
+	bgt 	$a0, $a1, done		# if i = n => done
+ 	j 	after_sort
 
 after_max: 
 	lw 	$t0, 0($a1)		# $t0 = value of adress A[n-1]
@@ -102,7 +63,7 @@ after_max:
  	addi 	$a1, $a1, -4		# n -= 4
  	j 	sort
 
-done: 	j 	end_main
+done: 	j 	end_main		
 
 max:	
 	la 	$a0, A
@@ -119,6 +80,48 @@ loop:
 	addi 	$v0, $t0, 0		# ptr = address of A[i]
 	addi 	$v1, $t1, 0		# max = A[i]
 	j 	loop
+	
+after_sort:
+	# Print message1
+	li 	$v0, 4
+	la 	$a0, Message1
+	syscall			
+	
+	# Print new line
+	la 	$a0, Newline
+	syscall			
+	
+	# print number of array
+	la 	$s0, A
+	la 	$s1, 0($t6)
+	lw 	$s2, 0($s0)
+	li 	$v0, 1
+	la 	$a0, 0($s2)		
+	syscall
+	
+	addi 	$t3, $zero, 0 		# i = 0
+	
+print_array:
+	# Print Message2
+	addi 	$t3, $t3, 4		# i += 4 
+	add 	$t4, $s0, $t3		# $t1 = address of A[0] + 4*i
+	lw 	$t5, 0($t4)		# x = A[i]
+	beq  	$t4, $s1, end		# if i > (n-1) end
+	li 	$v0, 4
+	la 	$a0, Message2
+	syscall				
+	
+	# Print A[i]
+	li 	$v0, 1
+	la 	$a0, 0($t5)
+	syscall				
+	j 	print_array
+	
+end:
+	li 	$v0, 4
+	la 	$a0, Newline
+	syscall
+	j max
 	
 ret:
 	j 	after_max

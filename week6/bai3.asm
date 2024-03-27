@@ -63,9 +63,9 @@ reset:
 	j 	bubble_sort
 	
 bubble_sort:
-	bgt  	$a2, $a1, print_sort	# if i > (n-1) end
+	bgt  	$a2, $a1, end_main	# if i > (n-1) => end
 	add 	$t1, $a0, $t0		# $t1 = address of A[0] + 4*j = A[j]
-	beq	$t1, $a2, reset		# if j = i print
+	beq	$t1, $a2, print_sort	# if j = i print
 	lw	$v0, 0($t1)		# $v0 = A[j]
 	lw	$v1, 0($a2)		# $v1 = A[i]
 	blt	$v1, $v0, swap		# if A[i] > A[j] swap
@@ -113,6 +113,7 @@ end:
 	li	$v0, 4
 	la	$a0, Newline
 	syscall
+	j 	reset
 	
 end_main:
 	# Exit
