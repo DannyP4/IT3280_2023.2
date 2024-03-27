@@ -40,7 +40,8 @@ input_array:
 	
 end_input:
 
-main: 	la 	$a0, A		# address of A[0]
+main: 	
+	la 	$a0, A		# address of A[0]
 	mul  	$s3, $a1, 4	# $s3 = (n - 1) * 4  
 	add 	$t6, $a0, $s3	# $t6 = address of  A[0] + (n - 1) * 4 = address of A[n - 1]
 	addi	$t6, $t6, 4	# $t6 = address of A[n]
