@@ -41,7 +41,8 @@ input_array:
 	addi 	$t0, $t0, 1
 	j 	input_array
 
-main: 	la 	$a0, A
+main: 	
+	la 	$a0, A
  	j 	mspfx
  	nop
 
@@ -69,17 +70,20 @@ continue:
 	la 	$a0, 0($s1)
 	syscall
 
-lock: 	li 	$v0, 10
+lock: 	
+	li 	$v0, 10
 	syscall
 
 end_of_main:
 
-mspfx: 	addi 	$v0, $zero, 0		# max_length = 0
+mspfx: 	
+	addi 	$v0, $zero, 0		# max_length = 0
  	addi 	$v1, $zero, 0		# max_sum = 0
  	addi 	$t0, $zero, 0		# i = 0
  	addi 	$t1, $zero, 0		# sum = 0
 
-loop: 	add 	$t2, $t0, $t0		# 2*i
+loop: 	
+	add 	$t2, $t0, $t0		# 2*i
  	add 	$t2, $t2, $t2		# 4*i
 	add 	$t3, $t2, $a0		# $t3 = (address of A) + 4*i
 	lw 	$t4, 0($t3)		# $t4 = A[i]
@@ -88,10 +92,12 @@ loop: 	add 	$t2, $t0, $t0		# 2*i
 	bne 	$t5, $zero, mdfy	# j mdfy
 	j 	test
 
-mdfy: 	addi 	$v0, $t0, 1		# max_length = i + 1
+mdfy: 	
+	addi 	$v0, $t0, 1		# max_length = i + 1
 	addi 	$v1, $t1, 0		# max_sum = sum
 
-test: 	addi 	$t0, $t0, 1		# i++
+test: 	
+	addi 	$t0, $t0, 1		# i++
 	sle 	$t5, $t0, $a1		# if i <= n thi loop
 	bne  	$t5, $zero, loop
 
