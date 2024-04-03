@@ -42,6 +42,7 @@ end_input:
 	addi 	$a0, $zero, 0 
 	addi 	$t1, $zero, 0
 	addi 	$t2, $zero, 0 	# reset register
+	
 load_value:
 	lw 	$s0, 0($t0)	# load $s0
 	lw 	$s1, 4($t0)	# load $s1
@@ -55,6 +56,7 @@ load_value:
 main: 	jal 	WARP
 
 print: 	
+	# in ket qua ra man hinh
 	add 	$a1, $v0, $zero 
 	li 	$v0, 4
 	la 	$a0, Message1
@@ -104,7 +106,7 @@ WARP:
 	addi 	$fp, $sp, 0 	# new frame pointer to top
 	addi 	$sp, $sp, -8 	# next stack
 	sw 	$ra, 0($sp)	# save return adress
-	jal stack
+	jal 	stack
 	
 	nop
 	lw 	$ra, 0($sp)	# restore address from stack
@@ -114,14 +116,15 @@ WARP:
 
 wrap_end:
 
-stack:	sw 	$fp,-4($sp)	# save frame pointer
-	addi 	$fp,$sp,0 	# new frame pointer to top
-	addi 	$sp,$sp,-16 	# create space for $ra, $a0, $A[i]( value of register s(j)
-	sw 	$ra,8($sp)  	# save return address
-	sw 	$a0,4($sp)  	# save number of register save value
-	lw 	$t1,0($t0)  	# $t1 = A[i] = value of s(j)
-	sw 	$t1,0($sp)  	# save s(j)
-	bne 	$a0,7,recursive 	#if j = 7 recursive
+stack:	
+	sw 	$fp, -4($sp)	# save frame pointer
+	addi 	$fp, $sp, 0 	# new frame pointer to top
+	addi 	$sp, $sp, -16 	# create space for $ra, $a0, $A[i]( value of register s(j)
+	sw 	$ra, 8($sp)  	# save return address
+	sw 	$a0, 4($sp)  	# save number of register save value
+	lw 	$t1, 0($t0)  	# $t1 = A[i] = value of s(j)
+	sw 	$t1, 0($sp)  	# save s(j)
+	bne 	$a0, 7, recursive 	#if j != 7 recursive
 	nop
 	lw 	$v0, 0($sp)	# save max value
 	lw 	$v1, 0($sp) 	# save min value
